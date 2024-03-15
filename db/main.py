@@ -1,22 +1,22 @@
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
-app = FastAPI()
+import crud, models, schemas
 
-from db import crud, models, schemas
-from db.database import SessionLocal, engine
+from database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
+app = FastAPI()
 
 
-# # Dependency
-# def get_db():
-#     db = SessionLocal()
-#     try:
-#         yield db
-#     finally:
-#         db.close()
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 # @app.post("/users/", response_model=schemas.User)
